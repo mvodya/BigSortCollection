@@ -15,6 +15,11 @@ void VisualModule::key_callback(GLFWwindow* window, int key, int scancode,
 // Main loop
 void VisualModule::loop() {
   while (!glfwWindowShouldClose(window)) {
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+    glViewport(0, 0, width, height);
+    glClear(GL_COLOR_BUFFER_BIT);
+
     glfwSwapBuffers(window);
     glfwPollEvents();
     tick();

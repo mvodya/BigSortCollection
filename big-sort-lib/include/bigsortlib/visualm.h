@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <thread>
 #include "GLFW/glfw3.h"
 
 typedef void (*updateTick)();
