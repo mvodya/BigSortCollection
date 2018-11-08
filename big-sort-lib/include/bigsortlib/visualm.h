@@ -1,7 +1,10 @@
 #pragma once
 #include <iostream>
+#include <algorithm>
 #include <string>
 #include "GLFW/glfw3.h"
+
+#define PI 3.14159
 
 typedef void (*updateTick)();
 
@@ -11,6 +14,10 @@ class VisualModule {
   GLFWwindow* window;
   // Function for update tick
   updateTick tick;
+  // Array
+  int* arr_;
+  // Array size
+  int size_;
 
   // Error callback for GLFW
   static void error_callback(int error, const char* description);
@@ -21,6 +28,6 @@ class VisualModule {
   void loop();
 
  public:
-  VisualModule(std::string title, updateTick update);
+  VisualModule(std::string title, updateTick update, int* arr, int size);
   ~VisualModule();
 };
