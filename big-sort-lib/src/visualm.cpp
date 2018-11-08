@@ -25,9 +25,6 @@ void VisualModule::loop() {
 
     glfwSwapBuffers(window);
     glfwPollEvents();
-
-    // Call tick
-    tick();
   }
   // If loop end - remove this object
   delete this;
@@ -84,10 +81,9 @@ void VisualModule::drawCircle() {
   }
 }
 
-VisualModule::VisualModule(std::string title, updateTick update, int* arr,
-                           int size) {
-  // Write pointer to update tick function
-  tick = update;
+VisualModule::VisualModule(std::string title, Function f, int* arr, int size) {
+  // Write pointer to function
+  function = f;
   // Set array
   arr_ = arr;
   // Set size
@@ -111,6 +107,8 @@ VisualModule::VisualModule(std::string title, updateTick update, int* arr,
   glfwMakeContextCurrent(window);
   glfwSwapInterval(1);
 
+  // Start function thread
+  thrFunction = new std::thread(function);
   // Start main loop
   loop();
 }

@@ -1,8 +1,9 @@
 #pragma once
 #include <algorithm>
+#include <chrono>
 #include <iostream>
-#include <thread>
 #include <string>
+#include <thread>
 #include "GLFW/glfw3.h"
 
 #define PI 3.14159
@@ -14,14 +15,16 @@ struct Color {
   float r, g, b;
 };
 
-typedef void (*updateTick)();
+typedef void (*Function)();
 
 class VisualModule {
  private:
   // Main window
   GLFWwindow* window;
-  // Function for update tick
-  updateTick tick;
+  // Function (with sorting)
+  Function function;
+  // Function thread
+  std::thread* thrFunction;
   // Array
   int* arr_;
   // Array size
@@ -41,6 +44,6 @@ class VisualModule {
   void drawCircle();
 
  public:
-  VisualModule(std::string title, updateTick update, int* arr, int size);
+  VisualModule(std::string title, Function f, int* arr, int size);
   ~VisualModule();
 };
