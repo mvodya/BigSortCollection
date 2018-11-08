@@ -20,50 +20,8 @@ void VisualModule::loop() {
     glViewport(0, 0, width, height);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Crawling all items in a circle
-    for (int i = 0; i < size_; i++) {
-      glLineWidth(2.5);
-      float r = 0;
-      float g = 0;
-      float b = 0;
-
-      if (arr_[i] >= 0) {
-        r = 1.0f;
-        b = (float)std::clamp(arr_[i], 0, 255) / 255;
-        g = 0;
-      }
-      if (arr_[i] > 255) {
-        r = 1.0f - (float)std::clamp(arr_[i] - 255, 0, 255) / 255;
-        b = 1.0f;
-        g = 0;
-      }
-      if (arr_[i] > 510) {
-        r = 0;
-        b = 1.0f;
-        g = (float)std::clamp(arr_[i] - 510, 0, 255) / 255;
-      }
-      if (arr_[i] > 765) {
-        r = 0;
-        b = 1.0f - (float)std::clamp(arr_[i] - 765, 0, 255) / 255;
-        g = 1.0f;
-      }
-      if (arr_[i] > 1020) {
-        r = (float)std::clamp(arr_[i] - 1020, 0, 255) / 255;
-        b = 0;
-        g = 1.0f;
-      }
-      if (arr_[i] > 1530) {
-        r = 1.0f;
-        b = 0;
-        g = 1.0f - (float)std::clamp(arr_[i] - 1530, 0, 255) / 255;
-      }
-      glColor3f(r, g, b);
-      // Draw line from center
-      glBegin(GL_LINES);
-      glVertex3f(0.0f, 0.0f, 0.0f);
-      glVertex3f(cos((float)i * PI / (size_ / 2)), sin((float)i * PI / (size_ / 2)), 0.0);
-      glEnd();
-    }
+    // Draw circle
+    drawCircle();
 
     glfwSwapBuffers(window);
     glfwPollEvents();
@@ -75,11 +33,63 @@ void VisualModule::loop() {
   delete this;
 }
 
-VisualModule::VisualModule(std::string title, updateTick update, int* arr, int size) {
+// Color function
+Color VisualModule::toColor(int& value) {
+  float r, g, b;
+  Color c;
+
+  // Calculate 3 color chanels by simple integer value
+  if (value > RT * 6) {
+    c.r = 1.0f;
+    c.b = 0;
+    c.g = 1.0f - (float)std::clamp(value - RT * 6, 0, RT) / RT;
+  } else if (value > RT * 4) {
+    c.r = (float)std::clamp(value - RT * 4, 0, RT) / RT;
+    c.b = 0;
+    c.g = 1.0f;
+  } else if (value > RT * 3) {
+    c.r = 0;
+    c.b = 1.0f - (float)std::clamp(value - RT * 3, 0, RT) / RT;
+    c.g = 1.0f;
+  } else if (value > RT * 2) {
+    c.r = 0;
+    c.b = 1.0f;
+    c.g = (float)std::clamp(value - RT * 2, 0, RT) / RT;
+  } else if (value > RT) {
+    c.r = 1.0f - (float)std::clamp(value - RT, 0, RT) / RT;
+    c.b = 1.0f;
+    c.g = 0;
+  } else if (value >= 0) {
+    c.r = 1.0f;
+    c.b = (float)std::clamp(value, 0, RT) / RT;
+    c.g = 0;
+  }
+  return c;
+}
+
+// Draw color circle
+void VisualModule::drawCircle() {
+  // Crawling all items in a circle
+  for (int i = 0; i < size_; i++) {
+    glLineWidth(2.5);
+    // Set color
+    Color color = toColor(arr_[i]);
+    glColor3f(color.r, color.g, color.b);
+    // Draw line from center
+    glBegin(GL_LINES);
+    glVertex3f(0.0f, 0.0f, 0.0f);
+    glVertex3f(cos((float)i * PI / (size_ / 2)),
+               sin((float)i * PI / (size_ / 2)), 0.0);
+    glEnd();
+  }
+}
+
+VisualModule::VisualModule(std::string title, updateTick update, int* arr,
+                           int size) {
   // Write pointer to update tick function
   tick = update;
   // Set array
-  arr_= arr;
+  arr_ = arr;
   // Set size
   size_ = size;
   // Set GLFW error callback
