@@ -95,7 +95,7 @@ VisualModule::VisualModule(std::string title, Function f, int* arr, int size) {
   if (!glfwInit()) exit(EXIT_FAILURE);
 
   // Create window
-  window = glfwCreateWindow(640, 480, title.c_str(), NULL, NULL);
+  window = glfwCreateWindow(640, 640, title.c_str(), NULL, NULL);
   if (!window) {
     glfwTerminate();
     exit(EXIT_FAILURE);
@@ -109,6 +109,7 @@ VisualModule::VisualModule(std::string title, Function f, int* arr, int size) {
 
   // Start function thread
   thrFunction = new std::thread(function);
+  thrFunction->detach();
   // Start main loop
   loop();
 }
