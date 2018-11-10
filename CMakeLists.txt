@@ -9,3 +9,4 @@ add_subdirectory(big-sort-lib)
 
 # Add projects
 add_subdirectory(bubble-sort)
+add_subdirectory(insertion-sort)
