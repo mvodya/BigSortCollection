@@ -1,12 +1,14 @@
 # Big sort collection
 
+Sorting algorithms with colored circle visualization.
+
 ## Algorithms
 
-* 🐢 Bubble sort
-* 🍹 Cocktail sort
-* 🕙 Insertion sort
-* 🍩 Merge sort
-* 🐆 Quick sort
+* 🐢 [Bubble sort](/bubble-sort/bubble.cpp)
+* 🍹 [Cocktail sort](/cocktail-sort/cocktail.cpp)
+* 🕙 [Insertion sort](/insertion-sort/insertion.cpp)
+* 🍩 [Merge sort](/merge-sort/merge.cpp)
+* 🐆 [Quick sort](/quick-sort/quick.cpp)
 
 ## Visualization
 
