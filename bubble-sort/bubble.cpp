@@ -3,6 +3,8 @@
 #include <random>
 #include "bigsortlib/visualm.h"
 
+using namespace sortlib;
+
 // Elements count
 #define N 100
 
