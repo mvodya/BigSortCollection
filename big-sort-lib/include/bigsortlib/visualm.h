@@ -7,6 +7,8 @@
 #include "GLFW/glfw3.h"
 #include "vars.h"
 
+namespace sortlib {
+
 struct Color {
   float r, g, b;
 };
@@ -43,3 +45,5 @@ class VisualModule {
   VisualModule(std::string title, Function f, int* arr, int size);
   ~VisualModule();
 };
+
+}  // namespace sortlib

@@ -1,5 +1,7 @@
 #include "bigsortlib/visualm.h"
 
+using namespace sortlib;
+
 // Error callback for GLFW
 void VisualModule::error_callback(int error, const char* description) {
   printf("Error: %s\n", description);
