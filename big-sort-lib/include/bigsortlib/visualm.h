@@ -5,11 +5,7 @@
 #include <string>
 #include <thread>
 #include "GLFW/glfw3.h"
-
-#define PI 3.14159
-#define PALETTE 1785
-#define COLORS (PALETTE - PALETTE / 6)
-#define RT (COLORS / 6)
+#include "vars.h"
 
 struct Color {
   float r, g, b;

@@ -4,7 +4,8 @@ project (bigsortlib)
 # Library sources
 set(SRC 
 "src/visualm.cpp"
-"include/bigsortlib/visualm.h")
+"include/bigsortlib/visualm.h"
+"include/bigsortlib/vars.h")
 
 add_library(${PROJECT_NAME} ${SRC})
 
